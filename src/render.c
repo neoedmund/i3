@@ -121,12 +121,15 @@ void render_con ( Con * con ) {
 	8 2/2/4 3/3/2
 	9 3/3/3
 	10 3/3/3/1 4/4/2
+	11 4/4/3
+	12 4/4/4 -> 3/3/3/3
 	*/
 		Con * child ;
 		if ( params . children > 0 && ( con -> layout == L_SPLITH || con -> layout == L_SPLITV ) ) {
 			# define MAXCNT 36
 			Con * children [ MAXCNT ] ;
 			TAILQ_FOREACH ( child , & ( con -> nodes_head ) , nodes ) {
+				if ( child -> type == CT_FLOATING_CON ) continue ;
 				children [ i ++ ] = child ;
 				if ( i >= MAXCNT ) break ;
 			}
@@ -138,6 +141,12 @@ void render_con ( Con * con ) {
 			int col = cnt / row ;
 			remain = cnt - row * col ;
 			if ( remain > 0 ) col ++ ;
+			else {
+				if ( row > col ) {
+					row = col ;
+					col = cnt / row ;
+				}
+			}
 			int w1 = params . rect . width / col ;
 			int h1 = params . rect . height / row ;
 			int h2 = 0 ;
