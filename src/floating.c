@@ -282,7 +282,7 @@ bool floating_enable(Con *con, bool automatic) {
     Con *ws = con_get_workspace(con);
     nc->parent = ws;
     nc->type = CT_FLOATING_CON;
-    nc->layout = L_SPLITH;
+    nc->layout = L_TABBED;
     /* We insert nc already, even though its rect is not yet calculated. This
      * is necessary because otherwise the workspace might be empty (and get
      * closed in tree_close_internal()) even though it’s not. */
